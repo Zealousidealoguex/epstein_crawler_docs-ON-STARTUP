@@ -1,0 +1,62 @@
+# Epstein Crawler – Automatic Startup Version
+
+This repository provides a universal, self-healing Windows startup system for running the Epstein crawler automatically at boot.
+
+It contains two scripts:
+
+- **run_epstein_startup.ps1**  
+  A self-healing PowerShell script that:
+  - Ensures the crawler repo exists in the user's home directory
+  - Updates the repo if it already exists
+  - Creates the downloads folder if missing
+  - Installs uv if needed
+  - Syncs Python dependencies
+  - Installs Playwright + Chromium
+  - Runs the crawler's main Python script
+
+- **install_task.ps1**  
+  Installs a Windows Task Scheduler entry that runs the startup script automatically at system startup.  
+  Works on any Windows machine with no device-specific paths.
+
+---
+
+## Installation
+
+1. Clone this repository:
+
+    ```powershell
+    git clone https://github.com/Zealousidealoguex/epstein_crawler_docs-ON-STARTUP
+    cd epstein_crawler_docs-ON-STARTUP
+    ```
+
+2. Copy the startup script into your home directory:
+
+    ```powershell
+    Copy-Item .\run_epstein_startup.ps1 $HOME\
+    ```
+
+3. Install the scheduled task:
+
+    ```powershell
+    powershell.exe -ExecutionPolicy Bypass -File .\install_task.ps1
+    ```
+
+4. Reboot to test.
+
+---
+
+## Requirements
+
+- Windows 10 or 11  
+- PowerShell  
+- Git  
+- Python + pip  
+- Internet connection (first run only)
+
+---
+
+## Notes
+
+- The startup script is fully self-healing and safe to run repeatedly.
+- No usernames or device-specific paths are used.
+- The scheduled task runs only when the user is logged in.
